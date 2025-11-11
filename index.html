@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pankaj Car Rental - Your Trusted Travel Partner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="car" class="logo"><img style="height: 35px;" src="car logo.png" alt="pankaj"></a>
+            <button class="mobile-menu" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="showHome()">Home</a></li>
+                <li><a href="#cars">Our Cars</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a class="btn" href="#offers">Current Offers</a></li>
+                <li id="userMenuContainer" class="user-menu hidden">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="#" onclick="showDashboard()">My Dashboard</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content (Home) -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Your Journey,<br>Your Car,<br>Your Way</h1>
+                    <p>Pankaj Choudhary</p>
+                    <a href="#cars" class="cta-button">Get Started</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600" alt="Car">
+                </div>
+            </div>
+        </section>
+
+        <!-- Car List Section -->
+        <section id="cars">
+            <h2>Our Car Fleet</h2>
+            <div class="car-grid" id="carGrid"></div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews">
+            <h2>What Our Customers Say</h2>
+            <div class="reviews-container" id="reviewsContainer"></div>
+        </section>
+
+        <!-- Offers Section -->
+        <section id="offers" class="container page-offers">
+            <h2>Current Offers</h2>
+            <section class="offers-grid">
+                <article class="offer-card">
+                    <h3>Weekender Special</h3>
+                    <p>Book Friday-Sunday and get 20% off on daily rate.</p>
+                    <div class="offer-meta">
+                        <span class="code">CODE: WEEKEND20</span>
+                        <button class="btn" data-copy="WEEKEND20">Copy Code</button>
+                    </div>
+                </article>
+                <article class="offer-card">
+                    <h3>Corporate Signup</h3>
+                    <p>Register a business account and get invoicing + 10% off for 3 months.</p>
+                    <div class="offer-meta">
+                        <span class="code">Contact us to apply</span>
+                        <a href="#contact" class="btn">Request Quote</a>
+                    </div>
+                </article>
+                <article class="offer-card">
+                    <h3>Long-term Rental</h3>
+                    <p>Rent more than 14 days and unlock special monthly rates.</p>
+                    <div class="offer-meta">
+                        <span class="code">AUTO-APPLY</span>
+                        <a class="btn" href="#cars">See Fleet</a>
+                    </div>
+                </article>
+            </section>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Pankaj Car Rental is your trusted partner for comfortable and affordable car rentals.</p>
+                    <p>✅ 24/7 roadside assistance<br>✅ Insurance & regular maintenance<br>✅ Business invoicing available</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Information</h3>
+                    <p>📍 123 Pratap Nagar, Jaipur, Rajasthan 302029</p>
+                    <p>📞 +91 9057238373</p>
+                    <p>✉️ info@pankajcarrental.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">𝕏</a>
+                        <a href="#">📷</a>
+                        <a href="#">in</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pankaj Car Rental. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="dashboardContainer" class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="profile-pic-container">
+                <img src="https://via.placeholder.com/120" alt="Profile" class="profile-pic-large" id="profilePicLarge">
+                <label for="profilePicUpload" class="upload-icon">📷</label>
+                <input type="file" id="profilePicUpload" accept="image/*" style="display: none;">
+            </div>
+            <div class="user-info">
+                <h2 id="dashboardUserName">Loading...</h2>
+                <p id="dashboardUserEmail"></p>
+            </div>
+        </div>
+
+        <div class="user-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBookings">0</div>
+                <div class="stat-label">Total Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeBookings">0</div>
+                <div class="stat-label">Active Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalSpent">₹0</div>
+                <div class="stat-label">Total Spent</div>
+            </div>
+        </div>
+
+        <div class="booking-history">
+            <h2>My Booking History</h2>
+            <div id="userBookingList"></div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <h1 style="text-align: center; color: #667eea; margin-bottom: 2rem;">Admin Dashboard</h1>
+        
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showAdminTab('bookings')">All Bookings</button>
+            <button class="admin-tab" onclick="showAdminTab('customers')">All Customers</button>
+            <button class="admin-tab" onclick="showAdminTab('stats')">Statistics</button>
+        </div>
+
+        <div class="admin-content">
+            <div id="adminBookings">
+                <h2>All Bookings</h2>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer Name</th>
+                                <th>Car</th>
+                                <th>Pickup Date</th>
+                                <th>Dropoff Date</th>
+                                <th>Total Fare</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBookingsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="adminCustomers" style="display: none;">
+                <h2>All Customers</h2>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Date of Birth</th>
+                                <th>Registration Date</th>
+                                <th>Total Bookings</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminCustomersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="adminStats" style="display: none;">
+                <h2>Statistics</h2>
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="adminTotalCars">6</div>
+                        <div class="stat-label">Total Cars</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="adminTotalBookings">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="adminTotalCustomers">0</div>
+                        <div class="stat-label">Total Customers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="adminTotalRevenue">₹0</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeLoginModal()">&times;</button>
+            <div id="loginFormContainer">
+                <h2>Welcome Back!</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="submit-button">Login</button>
+                    <div class="error-message" id="loginError"></div>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="close-modal" onclick="closeBookingModal()">&times;</button>
+            <h2>Complete Your Booking</h2>
+            <div id="selectedCarInfo" style="background: #f9f9f9; padding: 1rem; border-radius: 5px; margin-bottom: 1rem;">
+                <h3 id="modalCarName"></h3>
+                <p id="modalCarPrice"></p>
+            </div>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="customerName">Full Name *</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerAge">Age *</label>
+                    <input type="number" id="customerAge" min="18" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerEmail">Email *</label>
+                    <input type="email" id="customerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone">Phone Number *</label>
+                    <input type="tel" id="customerPhone" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="pickupDate">Pickup Date *</label>
+                    <input type="date" id="pickupDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="dropoffDate">Drop-off Date *</label>
+                    <input type="date" id="dropoffDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="pickupLocation">Pickup Location *</label>
+                    <input type="text" id="pickupLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="couponCode">Coupon Code</label>
+                    <input type="text" id="couponCode" placeholder="Enter coupon code">
+                </div>
+                <div class="form-group">
+                    <label for="additionalNotes">Additional Notes</label>
+                    <textarea id="additionalNotes" rows="3"></textarea>
+                </div>
+                <div style="background: #f0f0f0; padding: 1rem; border-radius: 5px; margin-bottom: 1rem;">
+                    <h3>Total Rental Cost</h3>
+                    <div style="font-size: 2rem; font-weight: bold; color: #667eea;" id="totalFare">₹0</div>
+                    <div id="fareBreakdown"></div>
+                </div>
+                <button type="submit" class="submit-button">Confirm Booking</button>
+                <div class="success-message" id="bookingSuccess">Booking confirmed! Redirecting to dashboard...</div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
